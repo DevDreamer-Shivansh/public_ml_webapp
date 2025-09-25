@@ -1,16 +1,15 @@
 import pickle
 import streamlit as st
 from streamlit_option_menu import option_menu
+import os
 
 # =================== Load Models =====================
-diabetes_model = pickle.load(open(
-    r'C:/Users/shivu/OneDrive/Desktop/Mutiple_disease_prediction/save_Models/diabetes_model.sav', 'rb'))
+BASE_DIR = os.path.dirname(__file__)  # current folder of the script
+MODEL_DIR = os.path.join(BASE_DIR, "save_Models")
 
-heart_disease_model = pickle.load(open(
-    r'C:/Users/shivu/OneDrive/Desktop/Mutiple_disease_prediction/save_Models/heart_disease_model.sav', 'rb'))
-
-parkinsons_model = pickle.load(open(
-    r'C:/Users/shivu/OneDrive/Desktop/Mutiple_disease_prediction/save_Models/parkinson_model.sav', 'rb'))
+diabetes_model = pickle.load(open(os.path.join(MODEL_DIR, 'diabetes_model.sav'), 'rb'))
+heart_disease_model = pickle.load(open(os.path.join(MODEL_DIR, 'heart_disease_model.sav'), 'rb'))
+parkinsons_model = pickle.load(open(os.path.join(MODEL_DIR, 'parkinson_model.sav'), 'rb'))
 
 # =================== Sidebar Menu =====================
 with st.sidebar:
@@ -57,7 +56,6 @@ if selected == 'Diabetes Prediction':
         except ValueError:
             st.error("⚠️ Please enter valid numeric values for all fields.")
 
-
 # =================== Heart Disease Prediction Page =====================
 elif selected == 'Heart Disease Prediction':
     st.title('❤️ Heart Disease Prediction using ML')
@@ -97,7 +95,6 @@ elif selected == 'Heart Disease Prediction':
             st.success(heart_diagnosis)
         except ValueError:
             st.error("⚠️ Please enter valid numeric values for all fields.")
-
 
 # =================== Parkinsons Prediction Page =====================
 elif selected == 'Parkinsons Prediction':
